@@ -1,5 +1,6 @@
 // 📌 models/User.js
 import mongoose from 'mongoose';
+
 const UserSchema = new mongoose.Schema({
   name: String,
   email: { type: String, unique: true },
@@ -9,4 +10,4 @@ const UserSchema = new mongoose.Schema({
   level: String,
   verified: { type: Boolean, default: false }
 });
-export const User = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

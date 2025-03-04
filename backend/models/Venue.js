@@ -1,7 +1,9 @@
-// 📌 models/Venue.js
-const VenueSchema = new mongoose.Schema({
-  name: { type: String, unique: true },
-  department: String,
-  bookedSlots: [{ day: String, time: String }]
+import mongoose from "mongoose";
+
+const Venue = new mongoose.Schema({
+  name: String,
+  capacity: Number,
+  booked: { type: Boolean, default: false }, // Track booking status
 });
-export const Venue = mongoose.model('Venue', VenueSchema);
+
+export default mongoose.model("Venue", Venue);

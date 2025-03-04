@@ -1,8 +1,10 @@
 // 📌 models/Course.js
-const CourseSchema = new mongoose.Schema({
+import mongoose from 'mongoose';
+
+const Course = new mongoose.Schema({
   name: String,
   code: { type: String, unique: true },
   department: String,
   level: String
 });
-export const Course = mongoose.model('Course', CourseSchema);
+export default mongoose.model('Course', Course);

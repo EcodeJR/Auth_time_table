@@ -1,4 +1,4 @@
-import { Venue } from '../models/Venue.js';
+import Venue from '../models/Venue.js';
 
 export const addVenue = async (req, res) => {
   const { name, department } = req.body;
@@ -8,6 +8,7 @@ export const addVenue = async (req, res) => {
     res.status(201).json(venue);
   } catch (error) {
     res.status(500).json({ error: error.message });
+    console.log(error)
   }
 };
 
@@ -17,5 +18,6 @@ export const getVenues = async (req, res) => {
     res.json(venues);
   } catch (error) {
     res.status(500).json({ error: error.message });
+    console.log(error)
   }
 };

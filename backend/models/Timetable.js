@@ -1,5 +1,7 @@
 // 📌 models/Timetable.js
-const TimetableSchema = new mongoose.Schema({
+import mongoose from 'mongoose';
+
+const Timetable = new mongoose.Schema({
   department: String,
   level: String,
   courses: [{
@@ -10,4 +12,4 @@ const TimetableSchema = new mongoose.Schema({
     time: String
   }]
 });
-export const Timetable = mongoose.model('Timetable', TimetableSchema);
+export default mongoose.model('Timetable', Timetable);

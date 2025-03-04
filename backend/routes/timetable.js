@@ -3,6 +3,6 @@ import { generateTimetable, getTimetable } from '../controllers/timetableControl
 const router = express.Router();
 
 router.post('/generate', generateTimetable);
-router.get('/:department/:level', getTimetable);
+router.get('/:department', getTimetable);
 
 export default router;
