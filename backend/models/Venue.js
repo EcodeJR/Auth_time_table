@@ -1,9 +1,13 @@
 import mongoose from "mongoose";
 
-const Venue = new mongoose.Schema({
-  name: String,
-  capacity: Number,
-  booked: { type: Boolean, default: false }, // Track booking status
+const VenueSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  department: { type: String, required: true },
+  capacity: { type: Number, required: true },
+  bookedSlots: { 
+    type: [{ day: String, time: String }], 
+    default: [] 
+  } // Track bookings as an array of objects
 });
 
-export default mongoose.model("Venue", Venue);
+export default mongoose.model("Venue", VenueSchema);

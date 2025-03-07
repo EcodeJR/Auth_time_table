@@ -5,20 +5,37 @@ import Timetable from '../models/Timetable.js';
 import { generateSchedule } from '../utils/scheduler.js';
 
 export const addCourse = async (req, res) => {
-  const { name, code, department, level } = req.body;
-
-  if (!name || !code || !department || !level) {
-    return res.status(400).json({ error: "All fields are required!" });
-  }
-
   try {
+    console.log("Received request body:", req.body); // Debugging log
+
+    const { name, code, department, level } = req.body;
+
+    if (!name || !code || !department || !level) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const existingCourse = await Course.findOne({ code, department, level });
+    if (existingCourse) {
+      return res.status(400).json({ message: "Course already exists" });
+    }
+
     const course = new Course({ name, code, department, level });
     await course.save();
-    res.status(201).json({ message: "Course added successfully", course });
+
+    try {
+      await generateSchedule([course]); // Ensure it's an array
+      res.status(201).json({ message: "Course added & timetable updated!", course });
+    } catch (e) {
+      console.error("Timetable update error:", e);
+      res.status(201).json({ message: "Course added but timetable not updated!", course });
+    }
   } catch (error) {
+    console.error("Server error:", error);
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 
 export const scheduleCourses = async (req, res) => {
