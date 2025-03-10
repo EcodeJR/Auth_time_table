@@ -9,7 +9,8 @@ function Register() {
     email: "", 
     password: "", 
     department: "", 
-    level: "" 
+    level: "",
+    role: "" 
   });
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -85,6 +86,22 @@ function Register() {
           onChange={handleChange} 
           required 
         />
+        <select
+          className="border p-2 w-full mb-3"
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Role</option>
+          <option value="superadmin">Super Admin</option>
+          <option value="admin">Admin</option>
+          <option value="user">Student</option>
+        </select>
+        <p className="text-sm text-gray-500 mb-4">
+          Note: Role should be either "Admin" for Course reps or "Student".
+        </p>
+
         <button
           className="bg-blue-500 text-white p-2 w-full rounded"
           type="submit"

@@ -6,6 +6,7 @@ function Dashboard() {
   const [timetable, setTimetable] = useState([]);
   const [department, setDepartment] = useState(""); // Start empty
   const [loading, setLoading] = useState(false); // Loading state
+  const [departments, setDepartments] = useState([]); // Start empty
 
   // We'll define these days to map columns
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -31,6 +32,19 @@ function Dashboard() {
     };
     fetchTimetable();
   }, [department]);
+
+  useEffect(() => {
+    const getDepartments = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/auth/dept");
+        setDepartments(response.data || []);
+        console.log("Departments:", response.data);
+      } catch (error) {
+        console.error("Error fetching departments", error);
+      }
+    };
+    getDepartments();
+  }, []);
 
   // Group the timetable data by level → { level: { Monday: [], Tuesday: [], ... }, ... }
   const groupedData = {};
@@ -69,9 +83,13 @@ function Dashboard() {
           onChange={(e) => setDepartment(e.target.value)}
         >
           <option value="">-- Select Department --</option>
+          {/* 
           <option value="Computer Science">Computer Science</option>
           <option value="Software Engineering">Software Engineering</option>
-          <option value="Information Technology">Information Technology</option>
+          <option value="Information Technology">Information Technology</option> */}
+          {departments.map((dept) => (
+            <option key={dept} value={dept}>{dept}</option>
+          ))}
           {/* Add more departments as needed */}
         </select>
       </div>

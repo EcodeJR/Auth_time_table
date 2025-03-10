@@ -1,9 +1,36 @@
 // 📌 src/components/Navbar.js
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if token exists in localStorage
+    console.log("Checking token...");
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsAuthenticated(true);
+      const storedName = localStorage.getItem("username");
+      setUserName(storedName || "Scholar");
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, [navigate]);
+
+  const handleSignOut = () => {
+    // Clear user info from localStorage and redirect to login
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    localStorage.removeItem("department");
+    localStorage.removeItem("level");
+    setIsAuthenticated(false);
+    navigate("/");
+  };
 
   return (
     <nav className="bg-blue-600 text-white shadow-lg py-4 px-6">
@@ -24,20 +51,34 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Authentication Links (Desktop) */}
-        <div className="hidden md:flex space-x-4">
-          <Link
-            to="/"
-            className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition duration-300"
-          >
-            Sign Up
-          </Link>
+        {/* Authentication / User Info Links (Desktop) */}
+        <div className="hidden md:flex items-center space-x-4">
+          {isAuthenticated ? (
+            <>
+              <span className="font-semibold">Welcome, {userName}!</span>
+              <button
+                onClick={handleSignOut}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-600 transition duration-300"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/"
+                className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-600 transition duration-300"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger Button for Mobile */}
@@ -85,20 +126,34 @@ const Navbar = () => {
             >
               Admin Panel
             </Link>
-            <Link
-              to="/"
-              onClick={() => setMenuOpen(false)}
-              className="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              onClick={() => setMenuOpen(false)}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition duration-300"
-            >
-              Sign Up
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <div className="px-4 py-2 font-semibold">Welcome, {userName}!</div>
+                <button
+                  onClick={() => { setMenuOpen(false); handleSignOut(); }} 
+                  className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition duration-300"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition duration-300"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

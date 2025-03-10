@@ -16,12 +16,13 @@ function Login() {
     setErrorMessage(""); // Clear previous error messages
     try {
       const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
-      const { token, department, level, role } = response.data;
+      const { token, department, level, role, username } = response.data;
 
       localStorage.setItem("token", token);
       localStorage.setItem("department", department);
       localStorage.setItem("level", level);
       localStorage.setItem("role", role);
+      localStorage.setItem("username", username);
       console.log(response.data.role);
       navigate("/dashboard");
     } catch (error) {

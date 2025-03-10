@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AdminPanel() {
+  const navigate = useNavigate();
   const [course, setCourse] = useState("");
   const [department, setDepartment] = useState("");
   const [code, setCode] = useState("");
@@ -9,6 +11,13 @@ function AdminPanel() {
   const [venueName, setVenueName] = useState(""); // ✅ Venue state
   const [venueCapacity, setVenueCapacity] = useState(""); // ✅ Venue capacity state
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const userRole = localStorage.getItem("role");
+    if (userRole !== "superadmin" && userRole !== "admin") {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   const handleCourseSubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +68,17 @@ function AdminPanel() {
     <div className="p-6">
       <h1 className="text-2xl font-bold">Admin Panel</h1>
 
+      {/* ✅ Venue Form */}
+      <h2 className="text-xl font-semibold mt-6">Add Lecture Venues</h2>
+      <form className="space-y-4" onSubmit={handleVenueSubmit}>
+        <input type="text" placeholder="Venue Name" value={venueName} onChange={(e) => setVenueName(e.target.value)} className="border p-2 w-full" required />
+        <input type="number" placeholder="Capacity" value={venueCapacity} onChange={(e) => setVenueCapacity(e.target.value)} className="border p-2 w-full" required />
+        <input type="text" placeholder="Department" value={department} onChange={(e) => setDepartment(e.target.value)} className="border p-2 w-full" required />
+        <button type="submit" className="bg-green-500 text-white p-2 w-full" disabled={loading}>
+          {loading ? "Adding Venue..." : "Add Venue"}
+        </button>
+      </form>
+
       {/* ✅ Course Form */}
       <h2 className="text-xl font-semibold mt-4">Add Course</h2>
       <form className="space-y-4" onSubmit={handleCourseSubmit}>
@@ -68,17 +88,6 @@ function AdminPanel() {
         <input type="text" placeholder="Level" value={level} onChange={(e) => setLevel(e.target.value)} className="border p-2 w-full" required />
         <button type="submit" className="bg-blue-500 text-white p-2 w-full" disabled={loading}>
           {loading ? "Adding Course..." : "Add Course"}
-        </button>
-      </form>
-
-      {/* ✅ Venue Form */}
-      <h2 className="text-xl font-semibold mt-6">Add Venue</h2>
-      <form className="space-y-4" onSubmit={handleVenueSubmit}>
-        <input type="text" placeholder="Venue Name" value={venueName} onChange={(e) => setVenueName(e.target.value)} className="border p-2 w-full" required />
-        <input type="number" placeholder="Capacity" value={venueCapacity} onChange={(e) => setVenueCapacity(e.target.value)} className="border p-2 w-full" required />
-        <input type="text" placeholder="Department" value={department} onChange={(e) => setDepartment(e.target.value)} className="border p-2 w-full" required />
-        <button type="submit" className="bg-green-500 text-white p-2 w-full" disabled={loading}>
-          {loading ? "Adding Venue..." : "Add Venue"}
         </button>
       </form>
     </div>

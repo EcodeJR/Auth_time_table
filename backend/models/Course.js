@@ -1,10 +1,14 @@
 // 📌 models/Course.js
 import mongoose from 'mongoose';
 
-const Course = new mongoose.Schema({
-  name: String,
-  code: { type: String, unique: true },
-  department: String,
-  level: String
+const CourseSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  code: { type: String, required: true },
+  department: { type: String, required: true },
+  level: { type: String, required: true }
 });
-export default mongoose.model('Course', Course);
+
+// Create a compound index to ensure uniqueness only on the combination of code, department, and level
+CourseSchema.index({ code: 1, department: 1, level: 1 }, { unique: true });
+
+export default mongoose.model('Course', CourseSchema);
