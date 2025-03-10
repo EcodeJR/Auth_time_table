@@ -17,6 +17,8 @@ const app = express();
 // Using CORS middleware to allow requests from specific origins
 const allowedOrigins = [
     'http://localhost:5173',
+    'https://auth-time.vercel.app/',
+    'https://vercel.com/ecodejrs-projects/auth-time/CAm7c7ZDC2heYPfQcpyx2YWfvRxb'
   ];
   
   app.use(cors({
