@@ -3,19 +3,11 @@
     "builds": [
       {
         "src": "backend/index.js",
-        "use": "@vercel/node",
-        "config": {
-          "maxDuration": 60,
-          "memory": 1024
-        }
+        "use": "@vercel/node"
       },
       {
         "src": "index.js",
-        "use": "@vercel/node",
-        "config": {
-          "maxDuration": 60,
-          "memory": 1024
-        }
+        "use": "@vercel/node"
       }
     ],
     "routes": [
@@ -42,10 +34,14 @@
     ],
     "functions": {
       "backend/index.js": {
-        "runtime": "nodejs18.x"
+        "runtime": "nodejs18.x",
+        "maxDuration": 60,
+        "memory": 1024
       },
       "index.js": {
-        "runtime": "nodejs18.x"
+        "runtime": "nodejs18.x",
+        "maxDuration": 60,
+        "memory": 1024
       }
     }
   }
