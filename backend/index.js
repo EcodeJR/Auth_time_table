@@ -20,13 +20,19 @@ const allowedOrigins = [
     'https://auth-time.vercel.app',
     'https://vercel.com/ecodejrs-projects/auth-time/CAm7c7ZDC2heYPfQcpyx2YWfvRxb'
   ];
-  
+  // app.use((req, res, next) => {
+  //   res.header('Access-Control-Allow-Origin', allowedOrigins); // Allow all origins
+  //   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  //   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  //   next();
+  // });
   app.use(cors({
     origin: (origin, callback) => {
       // Allow requests with no origin, like mobile apps or Postman
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.log(`Blocked by CORS: ${origin}`); // Log blocked origins
         callback(new Error('Not allowed by CORS'));
       }
     },
