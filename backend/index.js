@@ -12,34 +12,30 @@ import connectDB from './config/db.js';
 dotenv.config();
 const app = express();
 
-// Middleware
-// app.use(cors());
-// Using CORS middleware to allow requests from specific origins
+// Define allowed origins (make sure they exactly match your deployed frontends)
 const allowedOrigins = [
-    'http://localhost:5173',
-    'https://auth-time.vercel.app',
-    'https://vercel.com/ecodejrs-projects/auth-time/CAm7c7ZDC2heYPfQcpyx2YWfvRxb'
-  ];
-  // app.use((req, res, next) => {
-  //   res.header('Access-Control-Allow-Origin', allowedOrigins); // Allow all origins
-  //   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  //   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  //   next();
-  // });
-  app.use(cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin, like mobile apps or Postman
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log(`Blocked by CORS: ${origin}`); // Log blocked origins
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  }));
+  'http://localhost:5173',
+  'https://auth-time.vercel.app',
+  'https://vercel.com/ecodejrs-projects/auth-time/CAm7c7ZDC2heYPfQcpyx2YWfvRxb'
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    console.log("Request Origin:", origin);
+    // Allow requests with no origin (e.g. mobile apps, Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.log(`Blocked by CORS: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200, // For legacy browser support
+}));
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // ✅ Parse URL-encoded data
+app.use(express.urlencoded({ extended: true }));
 
 // Connect to Database
 connectDB();
