@@ -1,20 +1,26 @@
 {
     "version": 2,
-    "functions": {
-      "backend/index.js": {
-        "runtime": "nodejs18.x",
-        "maxDuration": 60,
-        "memory": 1024
+    "builds": [
+      {
+        "src": "backend/index.js",
+        "use": "@vercel/node",
+        "config": {
+          "maxDuration": 60,
+          "memory": 1024
+        }
       },
-      "index.js": {
-        "runtime": "nodejs18.x",
-        "maxDuration": 60,
-        "memory": 1024
+      {
+        "src": "index.js",
+        "use": "@vercel/node",
+        "config": {
+          "maxDuration": 60,
+          "memory": 1024
+        }
       }
-    },
+    ],
     "routes": [
       {
-        "src": "/(.*)",
+        "src": "/api/(.*)",
         "dest": "/backend/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
         "headers": {
@@ -29,4 +35,3 @@
       }
     ]
   }
-  
