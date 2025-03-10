@@ -14,9 +14,9 @@ const app = express();
 
 // Define allowed origins (make sure they exactly match your deployed frontends)
 const allowedOrigins = [
-  '*',
   'http://localhost:5173',
-  'https://auth-time.vercel.app'
+  'https://auth-time.vercel.app',
+  'https://vercel.com/ecodejrs-projects/auth-time/CAm7c7ZDC2heYPfQcpyx2YWfvRxb'
 ];
 
 app.use(cors({
