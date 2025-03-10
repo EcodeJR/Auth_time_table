@@ -19,7 +19,6 @@ export const addVenue = async (req, res) => {
     res.status(201).json({ message: "Venue added successfully", venue });
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error);
   }
 };
 
@@ -29,6 +28,5 @@ export const getVenues = async (req, res) => {
     res.json(venues);
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error);
   }
 };

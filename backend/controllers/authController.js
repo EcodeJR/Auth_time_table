@@ -19,10 +19,8 @@ export const registerAdmin = async (req, res) => {
       department: user.department,
       level: user.level
     });
-    console.log(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error);
   }
 };
 
@@ -46,16 +44,13 @@ export const loginAdmin = async (req, res) => {
     level: user.level,             // Send level
     username: user.name // // Send name
   });
-  console.log(user);
 };
 
 export const getdepartments = async (req, res) => {
   try {
     const departments = await User.distinct('department');
     res.json(departments);
-    console.log(departments);
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error);
   }
 };

@@ -6,7 +6,6 @@ export const getUnverifiedAdmins = async (req, res) => {
     res.json(admins);
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error)
   }
 };
 
@@ -20,6 +19,5 @@ export const verifyAdmin = async (req, res) => {
     res.json({ message: "Admin verified successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error)
   }
 };

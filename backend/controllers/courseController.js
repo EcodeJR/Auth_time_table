@@ -6,7 +6,6 @@ import { generateSchedule } from '../utils/scheduler.js';
 
 export const addCourse = async (req, res) => {
   try {
-    console.log("Received request body:", req.body); // Debugging log
 
     const { name, code, department, level } = req.body;
 
@@ -26,11 +25,9 @@ export const addCourse = async (req, res) => {
       await generateSchedule([course]); // Ensure it's an array
       res.status(201).json({ message: "Course added & timetable updated!", course });
     } catch (e) {
-      console.error("Timetable update error:", e);
       res.status(201).json({ message: "Course added but timetable not updated!", course });
     }
   } catch (error) {
-    console.error("Server error:", error);
     res.status(500).json({ error: error.message });
   }
 };

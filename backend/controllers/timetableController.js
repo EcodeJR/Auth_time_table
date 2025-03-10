@@ -35,7 +35,6 @@ export const getTimetable = async (req, res) => {
       res.json(timetables);
   } catch (error) {
       res.status(500).json({ error: error.message });
-      console.log(error)
   }
 };
 
