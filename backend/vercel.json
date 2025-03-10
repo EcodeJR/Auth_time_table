@@ -1,31 +1,30 @@
 {
     "version": 2,
     "builds": [
-      { "src": "/index.js", "use": "@vercel/node" },
-      { "src": "/backend/index", "use": "@vercel/node" }
+      { "src": "backend/index.js", "use": "@vercel/node" },
+      { "src": "index.js", "use": "@vercel/node" }
     ],
     "routes": [
       {
-        "src": "/backend/index",
-        "dest": "/backend/index.js",
-        "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/index.js",
+        "src": "/api/(.*)",
+        "dest": "backend/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
         "headers": {
           "Access-Control-Allow-Origin": "https://auth-time.vercel.app",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
           "Access-Control-Allow-Headers": "Authorization, Content-Type"
         }
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/index.js"
       }
     ],
     "functions": {
-      "/backend/index.js": {
+      "backend/index.js": {
         "maxDuration": 60
       },
-      "/index.js": {
+      "index.js": {
         "maxDuration": 60
       }
     }
