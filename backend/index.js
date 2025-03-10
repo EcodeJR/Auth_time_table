@@ -34,8 +34,15 @@ app.use(cors({
   optionsSuccessStatus: 200, // For legacy browser support
 }));
 
+// Global OPTIONS handler for preflight requests
 app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', allowedOrigin);
+  const origin = req.headers.origin;
+  // Set the Access-Control-Allow-Origin header to the request origin if it's allowed
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  } else {
+    res.header('Access-Control-Allow-Origin', '*');
+  }
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
   res.sendStatus(200);
