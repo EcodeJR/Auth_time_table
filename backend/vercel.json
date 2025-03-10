@@ -2,19 +2,19 @@
     "version": 2,
     "functions": {
       "backend/index.js": {
-        "runtime": "nodejs18.x@1.0.0",
+        "runtime": "nodejs18.x",
         "maxDuration": 60,
         "memory": 1024
       },
       "index.js": {
-        "runtime": "nodejs18.x@1.0.0",
+        "runtime": "nodejs18.x",
         "maxDuration": 60,
         "memory": 1024
       }
     },
     "routes": [
       {
-        "src": "/(.*)",
+        "src": "/api/(.*)",
         "dest": "/backend/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
         "headers": {
