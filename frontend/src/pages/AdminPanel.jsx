@@ -27,7 +27,7 @@ function AdminPanel() {
     console.log("Sending request data:", requestData); // Debugging
   
     try {
-      const response = await axios.post("https://time-table-backend.vercel.app/api/courses/add", requestData);
+      const response = await axios.post("http://localhost:5000/api/courses/add", requestData);
       console.log("Response from server:", response.data);
       alert("Course added successfully! Timetable will be generated automatically.");
   
@@ -48,7 +48,7 @@ function AdminPanel() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("https://time-table-backend.vercel.app/api/venues/add", {
+      await axios.post("http://localhost:5000/api/venues/add", {
         name: venueName,
         department,
         capacity: venueCapacity,

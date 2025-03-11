@@ -28,7 +28,7 @@ function Register() {
     setLoading(true);
     setErrorMessage(""); // Clear previous errors
     try {
-      await axios.post("https://time-table-backend.vercel.app/api/auth/register", formData);
+      await axios.post("http://localhost:5000/api/auth/register", formData);
       navigate("/");
     } catch (error) {
       console.error("Registration failed", error);

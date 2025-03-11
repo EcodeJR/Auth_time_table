@@ -12,14 +12,14 @@ function SuperAdmin() {
   useEffect(() => {
     const userRole = localStorage.getItem("role");
     if (userRole !== "superadmin") {
-      navigate("/dashboard");
+      navigate("/");
     }
   }, [navigate]);
 
   const handleManageUsers = async () => {
     setLoadingUsers(true);
     try {
-      const response = await axios.get("https://time-table-backend.vercel.app/api/admin/unverified");
+      const response = await axios.get("http://localhost:5000/api/admin/unverified");
       if (!response.data.length) {
         alert("No unverified users found");
       }

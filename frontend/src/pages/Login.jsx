@@ -15,7 +15,7 @@ function Login() {
     setLoading(true);
     setErrorMessage(""); // Clear previous error messages
     try {
-      const response = await axios.post("https://time-table-backend.vercel.app/api/auth/login", { email, password });
+      const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
       const { token, department, level, role, username } = response.data;
 
       localStorage.setItem("token", token);
