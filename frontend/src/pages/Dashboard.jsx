@@ -21,7 +21,7 @@ function Dashboard() {
     const fetchTimetable = async () => {
       setLoading(true); // Set loading to true before fetching data
       try {
-        const response = await axios.get(`http://localhost:5000/api/timetable/getall/${department}`);
+        const response = await axios.get(`https://time-table-backend.vercel.app/api/timetable/getall/${department}`);
         setTimetable(response.data || []);
       } catch (error) {
         console.error("Error fetching timetable", error);
@@ -35,7 +35,7 @@ function Dashboard() {
   useEffect(() => {
     const getDepartments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/dept");
+        const response = await axios.get("https://time-table-backend.vercel.app/api/auth/dept");
         setDepartments(response.data || []);
       } catch (error) {
         console.error("Error fetching departments", error);

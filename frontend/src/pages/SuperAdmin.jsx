@@ -34,7 +34,7 @@ function SuperAdmin() {
   const handleVerify = async (id) => {
     setVerifyingId(id);
     try {
-      await axios.post(`http://localhost:5000/api/admin/verify/${id}`);
+      await axios.post(`https://time-table-backend.vercel.app/api/admin/verify/${id}`);
       setUsers(users.filter((user) => user._id !== id)); // Remove verified user from list
     } catch (error) {
       console.error("Verification failed", error);
