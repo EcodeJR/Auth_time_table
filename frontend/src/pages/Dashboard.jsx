@@ -2,6 +2,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+
+// Helper function to capitalize each word in a string
+const capitalizeWords = (str) =>
+  str.replace(/\b\w/g, (char) => char.toUpperCase());
 function Dashboard() {
   const [timetable, setTimetable] = useState([]);
   const [department, setDepartment] = useState(""); // Start empty
@@ -36,7 +40,9 @@ function Dashboard() {
     const getDepartments = async () => {
       try {
         const response = await axios.get("https://time-table-backend.vercel.app/api/auth/dept");
-        setDepartments(response.data || []);
+        // Assuming response.data is an array of department names in lowercase
+        const capitalized = response.data.map((dept) => capitalizeWords(dept));
+        setDepartments(capitalized || []);
       } catch (error) {
         console.error("Error fetching departments", error);
       }

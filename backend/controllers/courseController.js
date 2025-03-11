@@ -6,19 +6,22 @@ import { generateSchedule } from '../utils/scheduler.js';
 
 export const addCourse = async (req, res) => {
   try {
-
     const { name, code, department, level } = req.body;
 
     if (!name || !code || !department || !level) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const existingCourse = await Course.findOne({ code, department, level });
+    // Normalize department to lower-case
+    const dept = department.trim().toLowerCase();
+
+    const existingCourse = await Course.findOne({ code, department: dept, level });
     if (existingCourse) {
       return res.status(400).json({ message: "Course already exists" });
     }
 
-    const course = new Course({ name, code, department, level });
+    // Create the course with the normalized department
+    const course = new Course({ name, code, department: dept, level });
     await course.save();
 
     try {
@@ -32,19 +35,19 @@ export const addCourse = async (req, res) => {
   }
 };
 
-
-
-
 export const scheduleCourses = async (req, res) => {
   try {
     const { department, level } = req.body;
-    const courses = await Course.find({ department, level });
-    const venues = await Venue.find({ department });
+    // Normalize department to lower-case
+    const dept = department.trim().toLowerCase();
+
+    const courses = await Course.find({ department: dept, level });
+    const venues = await Venue.find({ department: dept });
     const timetable = await generateSchedule(courses, venues);
-    await Timetable.create({ department, level, courses: timetable });
+    await Timetable.create({ department: dept, level, courses: timetable });
     res.json(timetable);
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log(error)
+    console.log(error);
   }
 };

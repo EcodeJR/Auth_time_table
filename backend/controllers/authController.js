@@ -12,7 +12,9 @@ export const registerAdmin = async (req, res) => {
     if (existingAdmins.length >= 2) {
       return res.status(400).json({ message: 'Only 2 admins allowed per level' });
     }
-    const user = new User({ name, email, password: hashedPassword, department, level, role });
+    // Normalize department to lower-case
+    const dept = department.trim().toLowerCase();
+    const user = new User({ name, email, password: hashedPassword, department: dept, level, role });
     await user.save();
     res.status(201).json({ 
       message: 'User registered, pending verification',
@@ -49,9 +51,36 @@ export const loginAdmin = async (req, res) => {
 
 export const getdepartments = async (req, res) => {
   try {
-    const departments = await User.distinct('department');
+    // Use an aggregation pipeline to normalize and group departments
+    const departmentsAgg = await User.aggregate([
+      { 
+        $match: { 
+          department: { $exists: true, $ne: null } 
+        } 
+      },
+      {
+        $project: {
+          department: { $trim: { input: { $toLower: "$department" } } }
+        }
+      },
+      {
+        $group: {
+          _id: "$department"
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          department: "$_id"
+        }
+      }
+    ]);
+
+    // Map to get an array of department names
+    const departments = departmentsAgg.map(item => item.department);
     res.json(departments);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+

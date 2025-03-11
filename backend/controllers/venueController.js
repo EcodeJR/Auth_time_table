@@ -14,7 +14,9 @@ export const addVenue = async (req, res) => {
     }
 
     // Save new venue
-    const venue = new Venue({ name, department, capacity });
+    // Normalize department to lower-case
+    const dept = department.trim().toLowerCase();
+    const venue = new Venue({ name, department: dept, capacity });
     await venue.save();
     res.status(201).json({ message: "Venue added successfully", venue });
   } catch (error) {
