@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white shadow-lg py-4 px-6">
+    <nav className="bg-[#2b2c31] backdrop-blur-sm text-white shadow-lg py-4 px-6">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo or App Name */}
         <h1 className="text-2xl font-bold">Time Table Scheduler</h1>

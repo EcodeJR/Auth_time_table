@@ -65,16 +65,16 @@ function AdminPanel() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-[#2b2c31] text-white">
       <h1 className="text-2xl font-bold">Admin Panel</h1>
 
       {/* ✅ Venue Form */}
       <h2 className="text-xl font-semibold mt-6">Add Lecture Venues</h2>
       <form className="space-y-4" onSubmit={handleVenueSubmit}>
-        <input type="text" placeholder="Venue Name" value={venueName} onChange={(e) => setVenueName(e.target.value)} className="border p-2 w-full" required />
-        <input type="number" placeholder="Capacity" value={venueCapacity} onChange={(e) => setVenueCapacity(e.target.value)} className="border p-2 w-full" required />
-        <input type="text" placeholder="Department" value={department} onChange={(e) => setDepartment(e.target.value)} className="border p-2 w-full" required />
-        <button type="submit" className="bg-green-500 text-white p-2 w-full" disabled={loading}>
+        <input type="text" placeholder="Venue Name" value={venueName} onChange={(e) => setVenueName(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <input type="number" placeholder="Capacity" value={venueCapacity} onChange={(e) => setVenueCapacity(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <input type="text" placeholder="Department" value={department} onChange={(e) => setDepartment(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <button type="submit" className="bg-green-500 outline-none text-white p-2 w-full" disabled={loading}>
           {loading ? "Adding Venue..." : "Add Venue"}
         </button>
       </form>
@@ -82,11 +82,11 @@ function AdminPanel() {
       {/* ✅ Course Form */}
       <h2 className="text-xl font-semibold mt-4">Add Course</h2>
       <form className="space-y-4" onSubmit={handleCourseSubmit}>
-        <input type="text" placeholder="Course Name" value={course} onChange={(e) => setCourse(e.target.value)} className="border p-2 w-full" required />
-        <input type="text" placeholder="Course Code" value={code} onChange={(e) => setCode(e.target.value)} className="border p-2 w-full" required />
-        <input type="text" placeholder="Department" value={department} onChange={(e) => setDepartment(e.target.value)} className="border p-2 w-full" required />
-        <input type="text" placeholder="Level" value={level} onChange={(e) => setLevel(e.target.value)} className="border p-2 w-full" required />
-        <button type="submit" className="bg-blue-500 text-white p-2 w-full" disabled={loading}>
+        <input type="text" placeholder="Course Name" value={course} onChange={(e) => setCourse(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <input type="text" placeholder="Course Code" value={code} onChange={(e) => setCode(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <input type="text" placeholder="Department" value={department} onChange={(e) => setDepartment(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <input type="text" placeholder="Level" value={level} onChange={(e) => setLevel(e.target.value)} className="p-2 outline-none w-full bg-[#474a4f]" required />
+        <button type="submit" className="bg-blue-500 outline-none text-white p-2 w-full" disabled={loading}>
           {loading ? "Adding Course..." : "Add Course"}
         </button>
       </form>

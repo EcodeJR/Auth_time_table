@@ -44,7 +44,7 @@ function SuperAdmin() {
   };
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen p-6 bg-[#2b2c31] text-white">
       <h1 className="text-2xl font-bold">Super Admin Panel</h1>
       <button
         onClick={handleManageUsers}
