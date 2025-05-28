@@ -24,8 +24,8 @@ export const generateSchedule = async (courses) => {
   ];
   
   let timetable = [];
-  let scheduledCourses = new Set(); // Ensure each course is scheduled only once
-  let levelDayCount = {}; // Track number of courses per level for each day
+  let scheduledCourses = new Set(); // Ensures each course is scheduled only once
+  let levelDayCount = {}; // Tracks number of courses per level for each day
 
 
   // Fetch venues for the department and shuffle them to randomize initial order
@@ -34,9 +34,8 @@ export const generateSchedule = async (courses) => {
     return [];
   }
   
-  // Query existing timetable entries for this department
+  // Queries existing timetable entries for this department
   const existingEntries = await Timetable.find({ department });
-  // Build mapping: { venueName: [ { day, time }, ... ] }
   const venueBookings = {};
   existingEntries.forEach(entry => {
     const vName = entry.venue;
@@ -49,7 +48,7 @@ export const generateSchedule = async (courses) => {
     });
   });
 
-  // Ensure each venue has a bookedSlots array, updated from DB
+  // Ensures each venue has a bookedSlots array, updated from DB
   venues.forEach(v => {
     if (!Array.isArray(v.bookedSlots)) {
       v.bookedSlots = [];
@@ -59,12 +58,9 @@ export const generateSchedule = async (courses) => {
     }
   });
 
-  // console.log("Available venues with current bookings:", venues.map(v => ({ name: v.name, bookedSlots: v.bookedSlots })));
-
   // For each course, schedule only one slot
   for (let course of courses) {
     if (scheduledCourses.has(course.code)) {
-      // console.log(`🚨 Skipping ${course.name} - Already scheduled.`);
       continue;
     }
 
@@ -99,7 +95,6 @@ export const generateSchedule = async (courses) => {
           // Update venue's booked slots and persist in DB
           venue.bookedSlots.push({ day, time });
           await venue.save();
-          // console.log(`✅ Venue updated: ${venue.name} booked for ${course.name} on ${day} at ${time}`);
 
           // Build course info as a plain object with full details
           const courseInfo = {
@@ -118,7 +113,6 @@ export const generateSchedule = async (courses) => {
           });
 
           await newEntry.save();
-          // console.log("📅 New timetable entry created:", newEntry.toObject());
 
           timetable.push(newEntry);
           scheduledCourses.add(course.code);
@@ -131,6 +125,5 @@ export const generateSchedule = async (courses) => {
     }
   }
 
-  // console.log(`✅ Scheduling complete. Total entries: ${timetable.length}`);
   return timetable;
 };
