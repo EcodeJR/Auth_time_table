@@ -229,56 +229,59 @@ const AccountManagement = () => {
         {/* Tab Navigation */}
         <div className="bg-white rounded-lg shadow-lg mb-6">
           <div className="border-b border-primary-100">
-            <nav className="flex space-x-8 px-6">
+            <nav className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-2 lg:space-x-8 px-4 sm:px-6">
               <button
                 onClick={() => setActiveTab('profile')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm ${
                   activeTab === 'profile'
                     ? 'border-primary-500 text-primary-600'
                     : 'border-transparent text-accent-500 hover:text-accent-700 hover:border-accent-300'
                 }`}
               >
-                <div className="flex items-center">
-                  <UserIcon className="w-5 h-5 mr-2" />
-                  Profile Information
+                <div className="flex items-center justify-center sm:justify-start">
+                  <UserIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Profile Information</span>
+                  <span className="sm:hidden">Profile</span>
                 </div>
               </button>
               <button
                 onClick={() => setActiveTab('security')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm ${
                   activeTab === 'security'
                     ? 'border-primary-500 text-primary-600'
                     : 'border-transparent text-accent-500 hover:text-accent-700 hover:border-accent-300'
                 }`}
               >
-                <div className="flex items-center">
-                  <LockIcon className="w-5 h-5 mr-2" />
-                  Security & Password
+                <div className="flex items-center justify-center sm:justify-start">
+                  <LockIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Security & Password</span>
+                  <span className="sm:hidden">Security</span>
                 </div>
               </button>
               <button
                 onClick={() => setActiveTab('account')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm ${
+                className={`py-3 sm:py-4 px-2 sm:px-1 border-b-2 font-medium text-xs sm:text-sm ${
                   activeTab === 'account'
                     ? 'border-primary-500 text-primary-600'
                     : 'border-transparent text-accent-500 hover:text-accent-700 hover:border-accent-300'
                 }`}
               >
-                <div className="flex items-center">
-                  <ShieldCheckIcon className="w-5 h-5 mr-2" />
-                  Account Settings
+                <div className="flex items-center justify-center sm:justify-start">
+                  <ShieldCheckIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Account Settings</span>
+                  <span className="sm:hidden">Account</span>
                 </div>
               </button>
             </nav>
           </div>
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {/* Profile Information Tab */}
             {activeTab === 'profile' && (
               <div>
-                <h2 className="text-2xl font-semibold text-accent-800 mb-6">Profile Information</h2>
-                <form onSubmit={handleProfileUpdate} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h2 className="text-xl sm:text-2xl font-semibold text-accent-800 mb-4 sm:mb-6">Profile Information</h2>
+                <form onSubmit={handleProfileUpdate} className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div>
                       <label className="block text-sm font-medium text-accent-700 mb-2">
                         Full Name
@@ -287,7 +290,7 @@ const AccountManagement = () => {
                         type="text"
                         value={profileData.name}
                         onChange={(e) => setProfileData({...profileData, name: e.target.value})}
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                         required
                       />
                     </div>
@@ -300,7 +303,7 @@ const AccountManagement = () => {
                         type="email"
                         value={profileData.email}
                         onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                         required
                       />
                     </div>
@@ -312,7 +315,7 @@ const AccountManagement = () => {
                       <select
                         value={profileData.department}
                         onChange={(e) => setProfileData({...profileData, department: e.target.value})}
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                         required
                       >
                         <option value="">Select Department</option>
@@ -332,7 +335,7 @@ const AccountManagement = () => {
                         <select
                           value={profileData.level}
                           onChange={(e) => setProfileData({...profileData, level: e.target.value})}
-                          className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                           required
                         >
                           <option value="">Select Level</option>
@@ -362,24 +365,24 @@ const AccountManagement = () => {
             {/* Security & Password Tab */}
             {activeTab === 'security' && (
               <div>
-                <h2 className="text-2xl font-semibold text-accent-800 mb-6">Security & Password</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold text-accent-800 mb-4 sm:mb-6">Security & Password</h2>
                 
                 {!showPasswordForm ? (
-                  <div className="text-center py-8">
-                    <LockIcon className="w-16 h-16 text-accent-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-accent-800 mb-2">Change Your Password</h3>
-                    <p className="text-accent-600 mb-6">
+                  <div className="text-center py-6 sm:py-8">
+                    <LockIcon className="w-12 h-12 sm:w-16 sm:h-16 text-accent-400 mx-auto mb-3 sm:mb-4" />
+                    <h3 className="text-base sm:text-lg font-medium text-accent-800 mb-2">Change Your Password</h3>
+                    <p className="text-sm sm:text-base text-accent-600 mb-4 sm:mb-6">
                       Keep your account secure by regularly updating your password
                     </p>
                     <button
                       onClick={() => setShowPasswordForm(true)}
-                      className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+                      className="bg-primary-600 hover:bg-primary-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors text-sm sm:text-base"
                     >
                       Change Password
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handlePasswordChange} className="space-y-6">
+                  <form onSubmit={handlePasswordChange} className="space-y-4 sm:space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-accent-700 mb-2">
                         Current Password
@@ -388,7 +391,7 @@ const AccountManagement = () => {
                         type="password"
                         value={passwordData.currentPassword}
                         onChange={(e) => setPasswordData({...passwordData, currentPassword: e.target.value})}
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                         required
                       />
                     </div>
@@ -401,7 +404,7 @@ const AccountManagement = () => {
                         type="password"
                         value={passwordData.newPassword}
                         onChange={(e) => setPasswordData({...passwordData, newPassword: e.target.value})}
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                         required
                         minLength={6}
                       />
@@ -415,13 +418,13 @@ const AccountManagement = () => {
                         type="password"
                         value={passwordData.confirmPassword}
                         onChange={(e) => setPasswordData({...passwordData, confirmPassword: e.target.value})}
-                        className="w-full px-4 py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-primary-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm sm:text-base"
                         required
                         minLength={6}
                       />
                     </div>
                     
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
                       <button
                         type="button"
                         onClick={() => {
@@ -432,14 +435,14 @@ const AccountManagement = () => {
                             confirmPassword: ''
                           });
                         }}
-                        className="px-6 py-3 border border-primary-300 text-primary-600 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                        className="px-4 sm:px-6 py-2 sm:py-3 border border-primary-300 text-primary-600 rounded-lg font-semibold hover:bg-primary-50 transition-colors text-sm sm:text-base"
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
                         disabled={loading}
-                        className="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
+                        className="bg-primary-600 hover:bg-primary-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 text-sm sm:text-base"
                       >
                         {loading ? 'Changing...' : 'Change Password'}
                       </button>
@@ -452,42 +455,42 @@ const AccountManagement = () => {
             {/* Account Settings Tab */}
             {activeTab === 'account' && (
               <div>
-                <h2 className="text-2xl font-semibold text-accent-800 mb-6">Account Settings</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold text-accent-800 mb-4 sm:mb-6">Account Settings</h2>
                 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Account Information */}
-                  <div className="bg-accent-50 rounded-lg p-6">
-                    <h3 className="text-lg font-medium text-accent-800 mb-4">Account Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-accent-50 rounded-lg p-4 sm:p-6">
+                    <h3 className="text-base sm:text-lg font-medium text-accent-800 mb-3 sm:mb-4">Account Information</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                        <span className="text-sm font-medium text-accent-600">Role:</span>
-                        <p className="text-accent-800 capitalize">{user.role?.replace('_', ' ')}</p>
+                        <span className="text-xs sm:text-sm font-medium text-accent-600">Role:</span>
+                        <p className="text-sm sm:text-base text-accent-800 capitalize">{user.role?.replace('_', ' ')}</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-accent-600">Account Status:</span>
-                        <p className="text-green-600 font-medium">Active</p>
+                        <span className="text-xs sm:text-sm font-medium text-accent-600">Account Status:</span>
+                        <p className="text-sm sm:text-base text-green-600 font-medium">Active</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-accent-600">Member Since:</span>
-                        <p className="text-accent-800">{new Date().toLocaleDateString()}</p>
+                        <span className="text-xs sm:text-sm font-medium text-accent-600">Member Since:</span>
+                        <p className="text-sm sm:text-base text-accent-800">{new Date().toLocaleDateString()}</p>
                       </div>
                       <div>
-                        <span className="text-sm font-medium text-accent-600">Last Login:</span>
-                        <p className="text-accent-800">{new Date().toLocaleDateString()}</p>
+                        <span className="text-xs sm:text-sm font-medium text-accent-600">Last Login:</span>
+                        <p className="text-sm sm:text-base text-accent-800">{new Date().toLocaleDateString()}</p>
                       </div>
                     </div>
                   </div>
 
                   {/* Danger Zone */}
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-                    <h3 className="text-lg font-medium text-red-800 mb-4">Danger Zone</h3>
-                    <p className="text-red-600 mb-4">
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6">
+                    <h3 className="text-base sm:text-lg font-medium text-red-800 mb-3 sm:mb-4">Danger Zone</h3>
+                    <p className="text-sm sm:text-base text-red-600 mb-3 sm:mb-4">
                       Once you delete your account, there is no going back. Please be certain.
                     </p>
                     <button
                       onClick={handleDeleteAccount}
                       disabled={loading}
-                      className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
+                      className="bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 text-sm sm:text-base"
                     >
                       {loading ? 'Deleting...' : 'Delete Account'}
                     </button>

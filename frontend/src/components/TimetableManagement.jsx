@@ -279,75 +279,75 @@ const TimetableManagement = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Tab Navigation */}
-      <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-6">
-        <div className="flex space-x-1 bg-primary-50 rounded-lg p-1">
+      <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-1 bg-primary-50 rounded-lg p-1">
           <button
             onClick={() => setActiveTab('timetables')}
-            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors flex items-center justify-center ${
+            className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors flex items-center justify-center text-sm sm:text-base ${
               activeTab === 'timetables'
                 ? 'bg-primary-600 text-white'
                 : 'text-accent-600 hover:text-primary-600'
             }`}
           >
             <CalendarIcon />
-            <span className="ml-2">Timetables</span>
+            <span className="ml-1 sm:ml-2">Timetables</span>
           </button>
           <button
             onClick={() => setActiveTab('venues')}
-            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors flex items-center justify-center ${
+            className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors flex items-center justify-center text-sm sm:text-base ${
               activeTab === 'venues'
                 ? 'bg-primary-600 text-white'
                 : 'text-accent-600 hover:text-primary-600'
             }`}
           >
             <BuildingIcon />
-            <span className="ml-2">Venues</span>
+            <span className="ml-1 sm:ml-2">Venues</span>
           </button>
           <button
             onClick={() => setActiveTab('courses')}
-            className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors flex items-center justify-center ${
+            className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors flex items-center justify-center text-sm sm:text-base ${
               activeTab === 'courses'
                 ? 'bg-primary-600 text-white'
                 : 'text-accent-600 hover:text-primary-600'
             }`}
           >
             <BookOpenIcon />
-            <span className="ml-2">Courses</span>
+            <span className="ml-1 sm:ml-2">Courses</span>
           </button>
         </div>
       </div>
 
       {/* Timetables Tab */}
       {activeTab === 'timetables' && (
-        <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-accent-800">Timetable Management</h2>
+        <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-accent-800 mb-3 sm:mb-0">Timetable Management</h2>
             <button
               onClick={() => setShowGenerateModal(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm sm:text-base"
             >
               <CalendarIcon />
-              <span className="ml-2">Generate Timetable</span>
+              <span className="ml-1 sm:ml-2">Generate Timetable</span>
             </button>
           </div>
           
           {timetables.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-accent-600 text-lg">No timetables found for your department.</p>
-              <p className="text-accent-500 mt-2">Add venues and courses first, then generate timetables.</p>
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-accent-600 text-base sm:text-lg">No timetables found for your department.</p>
+              <p className="text-accent-500 mt-2 text-sm sm:text-base">Add venues and courses first, then generate timetables.</p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {timetables.map((timetable) => (
-                <div key={timetable._id} className="border border-accent-200 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="font-semibold text-accent-800">
+                <div key={timetable._id} className="border border-accent-200 rounded-lg p-3 sm:p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <div className="mb-3 sm:mb-0 flex-1">
+                      <h3 className="font-semibold text-accent-800 text-sm sm:text-base">
                         {timetable.department} - Level {timetable.level} - {timetable.semester.charAt(0).toUpperCase() + timetable.semester.slice(1)} Semester
                       </h3>
-                      <p className="text-sm text-accent-600">
+                      <p className="text-xs sm:text-sm text-accent-600">
                         Status: <span className={`font-medium ${
                           timetable.status === 'draft' ? 'text-yellow-600' :
                           timetable.status === 'shared' ? 'text-blue-600' :
@@ -356,33 +356,33 @@ const TimetableManagement = () => {
                           {timetable.status.charAt(0).toUpperCase() + timetable.status.slice(1)}
                         </span>
                       </p>
-                      <p className="text-sm text-accent-500">
+                      <p className="text-xs sm:text-sm text-accent-500">
                         Courses: {timetable.courses.length}
                       </p>
                     </div>
                     
-                    <div className="flex space-x-2">
+                    <div className="flex flex-wrap gap-2">
                       {/* View Timetable Button - Always available */}
                       <button
                         onClick={() => handleViewTimetable(timetable._id)}
-                        className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors flex items-center text-sm"
+                        className="bg-gray-600 hover:bg-gray-700 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg font-semibold transition-colors flex items-center text-xs sm:text-sm"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
-                        <span className="ml-1">View</span>
+                        <span className="ml-1 hidden sm:inline">View</span>
                       </button>
 
                       {/* Export PDF Button - Always available */}
                       <button
                         onClick={() => handleExportToPDF(timetable)}
-                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors flex items-center text-sm"
+                        className="bg-green-600 hover:bg-green-700 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg font-semibold transition-colors flex items-center text-xs sm:text-sm"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <span className="ml-1">Export PDF</span>
+                        <span className="ml-1 hidden sm:inline">Export PDF</span>
                       </button>
 
                       {/* Draft Status Actions */}
@@ -390,30 +390,30 @@ const TimetableManagement = () => {
                         <>
                           <button
                             onClick={() => handleRegenerateTimetable(timetable._id)}
-                            className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors flex items-center text-sm"
+                            className="bg-orange-600 hover:bg-orange-700 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg font-semibold transition-colors flex items-center text-xs sm:text-sm"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
-                            <span className="ml-1">Regenerate</span>
+                            <span className="ml-1 hidden sm:inline">Regenerate</span>
                           </button>
                           
                           <button
                             onClick={() => handleDeleteTimetable(timetable._id)}
-                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors flex items-center text-sm"
+                            className="bg-red-600 hover:bg-red-700 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg font-semibold transition-colors flex items-center text-xs sm:text-sm"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
-                            <span className="ml-1">Delete</span>
+                            <span className="ml-1 hidden sm:inline">Delete</span>
                           </button>
                           
                           <button
                             onClick={() => handleShareTimetable(timetable)}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-semibold transition-colors flex items-center text-sm"
+                            className="bg-blue-600 hover:bg-blue-700 text-white px-2 sm:px-3 py-1 sm:py-2 rounded-lg font-semibold transition-colors flex items-center text-xs sm:text-sm"
                           >
                             <ShareIcon />
-                            <span className="ml-1">Share</span>
+                            <span className="ml-1 hidden sm:inline">Share</span>
                           </button>
                         </>
                       )}
@@ -422,7 +422,7 @@ const TimetableManagement = () => {
                       {timetable.status === 'shared' && (
                         <div className="flex items-center text-blue-600">
                           <ShareIcon />
-                          <span className="ml-2 text-sm font-medium">Shared with Course Reps</span>
+                          <span className="ml-1 sm:ml-2 text-xs sm:text-sm font-medium">Shared with Course Reps</span>
                         </div>
                       )}
                       
@@ -430,7 +430,7 @@ const TimetableManagement = () => {
                       {timetable.status === 'published' && (
                         <div className="flex items-center text-green-600">
                           <CalendarIcon />
-                          <span className="ml-2 text-sm font-medium">Published & Live</span>
+                          <span className="ml-1 sm:ml-2 text-xs sm:text-sm font-medium">Published & Live</span>
                         </div>
                       )}
                     </div>
@@ -444,31 +444,31 @@ const TimetableManagement = () => {
 
       {/* Venues Tab */}
       {activeTab === 'venues' && (
-        <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-accent-800">Venue Management</h2>
+        <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-accent-800 mb-3 sm:mb-0">Venue Management</h2>
             <button
               onClick={() => setShowAddVenueModal(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm sm:text-base"
             >
               <PlusIcon />
-              <span className="ml-2">Add Venue</span>
+              <span className="ml-1 sm:ml-2">Add Venue</span>
             </button>
           </div>
           
           {venues.length === 0 ? (
-            <div className="text-center py-12">
+            <div className="text-center py-8 sm:py-12">
               <BuildingIcon />
-              <p className="text-accent-600 text-lg mt-4">No venues found for your department.</p>
-              <p className="text-accent-500 mt-2">Add venues to start creating timetables.</p>
+              <p className="text-accent-600 text-base sm:text-lg mt-4">No venues found for your department.</p>
+              <p className="text-accent-500 mt-2 text-sm sm:text-base">Add venues to start creating timetables.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {venues.map((venue) => (
-                <div key={venue._id} className="border border-accent-200 rounded-lg p-4">
-                  <h3 className="font-semibold text-accent-800">{venue.name}</h3>
-                  <p className="text-sm text-accent-600">Capacity: {venue.capacity}</p>
-                  <p className="text-sm text-accent-500">Location: {venue.location}</p>
+                <div key={venue._id} className="border border-accent-200 rounded-lg p-3 sm:p-4">
+                  <h3 className="font-semibold text-accent-800 text-sm sm:text-base">{venue.name}</h3>
+                  <p className="text-xs sm:text-sm text-accent-600">Capacity: {venue.capacity}</p>
+                  <p className="text-xs sm:text-sm text-accent-500">Location: {venue.location}</p>
                 </div>
               ))}
             </div>
@@ -478,46 +478,46 @@ const TimetableManagement = () => {
 
       {/* Courses Tab */}
       {activeTab === 'courses' && (
-        <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-accent-800">Course Management</h2>
+        <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-accent-800 mb-3 sm:mb-0">Course Management</h2>
             <button
               onClick={() => setShowAddCourseModal(true)}
-              className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+              className="bg-primary-600 hover:bg-primary-700 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm sm:text-base"
             >
               <PlusIcon />
-              <span className="ml-2">Add Course</span>
+              <span className="ml-1 sm:ml-2">Add Course</span>
             </button>
           </div>
           
           {courses.length === 0 ? (
-            <div className="text-center py-12">
+            <div className="text-center py-8 sm:py-12">
               <BookOpenIcon />
-              <p className="text-accent-600 text-lg mt-4">No courses found for your department.</p>
-              <p className="text-accent-500 mt-2">Add courses to start creating timetables.</p>
+              <p className="text-accent-600 text-base sm:text-lg mt-4">No courses found for your department.</p>
+              <p className="text-accent-500 mt-2 text-sm sm:text-base">Add courses to start creating timetables.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full border-separate border-spacing-0 rounded-lg shadow-sm bg-primary-50 text-sm">
+              <table className="min-w-full border-separate border-spacing-0 rounded-lg shadow-sm bg-primary-50 text-xs sm:text-sm">
                 <thead>
                   <tr className="bg-primary-600 text-white rounded-t-lg">
-                    <th className="p-3 font-bold text-left rounded-tl-lg">Code</th>
-                    <th className="p-3 font-bold text-left">Name</th>
-                    <th className="p-3 font-bold text-left">Level</th>
-                    <th className="p-3 font-bold text-left">Semester</th>
-                    <th className="p-3 font-bold text-left">Instructor</th>
-                    <th className="p-3 font-bold text-left rounded-tr-lg">Class Size</th>
+                    <th className="p-2 sm:p-3 font-bold text-left rounded-tl-lg">Code</th>
+                    <th className="p-2 sm:p-3 font-bold text-left">Name</th>
+                    <th className="p-2 sm:p-3 font-bold text-left">Level</th>
+                    <th className="p-2 sm:p-3 font-bold text-left">Semester</th>
+                    <th className="p-2 sm:p-3 font-bold text-left">Instructor</th>
+                    <th className="p-2 sm:p-3 font-bold text-left rounded-tr-lg">Class Size</th>
                   </tr>
                 </thead>
                 <tbody>
                   {courses.map((course, index) => (
                     <tr key={course._id} className={index % 2 === 0 ? 'bg-white' : 'bg-primary-50'}>
-                      <td className="p-3 font-semibold text-accent-800">{course.code}</td>
-                      <td className="p-3 text-accent-600">{course.name}</td>
-                      <td className="p-3 text-accent-600">{course.level}</td>
-                      <td className="p-3 text-accent-600">{course.semester.charAt(0).toUpperCase() + course.semester.slice(1)}</td>
-                      <td className="p-3 text-accent-600">{course.instructor}</td>
-                      <td className="p-3 text-accent-600">{course.classSize}</td>
+                      <td className="p-2 sm:p-3 font-semibold text-accent-800">{course.code}</td>
+                      <td className="p-2 sm:p-3 text-accent-600">{course.name}</td>
+                      <td className="p-2 sm:p-3 text-accent-600">{course.level}</td>
+                      <td className="p-2 sm:p-3 text-accent-600">{course.semester.charAt(0).toUpperCase() + course.semester.slice(1)}</td>
+                      <td className="p-2 sm:p-3 text-accent-600">{course.instructor}</td>
+                      <td className="p-2 sm:p-3 text-accent-600">{course.classSize}</td>
                     </tr>
                   ))}
                 </tbody>

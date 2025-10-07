@@ -219,22 +219,22 @@ const LandingPage = () => {
       </section>
 
       {/* Timetable Search Section */}
-      <section className="py-16 bg-white">
+      <section className="py-8 sm:py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-accent-900 mb-4">Find Your Timetable</h2>
-            <p className="text-lg text-accent-600">Search for your schedule by faculty, department, level, and semester</p>
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-accent-900 mb-3 sm:mb-4">Find Your Timetable</h2>
+            <p className="text-base sm:text-lg text-accent-600">Search for your schedule by faculty, department, level, and semester</p>
           </div>
           
-          <div className="bg-primary-50 rounded-2xl p-8 shadow-lg">
-            <form onSubmit={handleSearch} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-primary-50 rounded-2xl p-4 sm:p-8 shadow-lg">
+            <form onSubmit={handleSearch} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-accent-700 mb-2">Faculty</label>
                   <select 
                     value={searchData.faculty}
                     onChange={(e) => setSearchData({...searchData, faculty: e.target.value})}
-                    className="w-full px-4 py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   >
                     <option value="">Select Faculty</option>
                     <option value="engineering">Engineering</option>
@@ -248,7 +248,7 @@ const LandingPage = () => {
                   <select 
                     value={searchData.department}
                     onChange={(e) => setSearchData({...searchData, department: e.target.value})}
-                    className="w-full px-4 py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   >
                     <option value="">Select Department</option>
                     <option value="computer-science">Computer Science</option>
@@ -262,7 +262,7 @@ const LandingPage = () => {
                   <select 
                     value={searchData.level}
                     onChange={(e) => setSearchData({...searchData, level: e.target.value})}
-                    className="w-full px-4 py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   >
                     <option value="">Select Level</option>
                     <option value="100">100 Level</option>
@@ -277,7 +277,7 @@ const LandingPage = () => {
                   <select 
                     value={searchData.semester}
                     onChange={(e) => setSearchData({...searchData, semester: e.target.value})}
-                    className="w-full px-4 py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-accent-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
                   >
                     <option value="">Select Semester</option>
                     <option value="first">First Semester</option>
@@ -287,17 +287,17 @@ const LandingPage = () => {
               </div>
               <button 
                 type="submit"
-                className="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 rounded-lg font-semibold transition-colors inline-flex items-center justify-center"
+                className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 sm:py-3 rounded-lg font-semibold transition-colors inline-flex items-center justify-center text-sm sm:text-base"
                 disabled={searchLoading}
               >
                 {searchLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white mr-2"></div>
                     Searching...
                   </>
                 ) : (
                   <>
-                    <MagnifyingGlassIcon className="w-5 h-5 mr-2" />
+                    <MagnifyingGlassIcon className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Search Timetable
                   </>
                 )}
@@ -307,55 +307,55 @@ const LandingPage = () => {
 
           {/* Search Results */}
           {showResults && (
-            <div className="mt-8 bg-white rounded-2xl p-8 shadow-lg border border-primary-100">
-              <h3 className="text-2xl font-bold text-accent-800 mb-6">Search Results</h3>
+            <div className="mt-6 sm:mt-8 bg-white rounded-2xl p-4 sm:p-8 shadow-lg border border-primary-100">
+              <h3 className="text-xl sm:text-2xl font-bold text-accent-800 mb-4 sm:mb-6">Search Results</h3>
               
               {searchResults.length === 0 ? (
-                <div className="text-center py-8">
-                  <p className="text-accent-600 text-lg">No published timetables found for your search criteria.</p>
-                  <p className="text-accent-500 mt-2">Please check with your department or try different search parameters.</p>
+                <div className="text-center py-6 sm:py-8">
+                  <p className="text-accent-600 text-base sm:text-lg">No published timetables found for your search criteria.</p>
+                  <p className="text-accent-500 mt-2 text-sm sm:text-base">Please check with your department or try different search parameters.</p>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {searchResults.map((timetable) => (
-                    <div key={timetable._id} className="border border-accent-200 rounded-lg p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div>
-                          <h4 className="text-xl font-bold text-accent-800">
+                    <div key={timetable._id} className="border border-accent-200 rounded-lg p-4 sm:p-6">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4">
+                        <div className="mb-3 sm:mb-0 flex-1">
+                          <h4 className="text-lg sm:text-xl font-bold text-accent-800">
                             {timetable.department} - Level {timetable.level} - {timetable.semester.charAt(0).toUpperCase() + timetable.semester.slice(1)} Semester
                           </h4>
-                          <p className="text-accent-600">
+                          <p className="text-sm sm:text-base text-accent-600">
                             Created by: {timetable.createdBy?.name}
                           </p>
-                          <p className="text-sm text-accent-500">
+                          <p className="text-xs sm:text-sm text-accent-500">
                             {timetable.courses.length} courses scheduled
                           </p>
                         </div>
-                        <div className="flex items-center space-x-3">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                           <button
                             onClick={() => handleExportToPDF(timetable)}
-                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center text-sm"
+                            className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-xs sm:text-sm"
                           >
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                             Export PDF
                           </button>
-                          <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                          <div className="bg-green-100 text-green-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold self-start sm:self-center">
                             Published
                           </div>
                         </div>
                       </div>
                       
                       <div className="overflow-x-auto">
-                        <table className="min-w-full border-separate border-spacing-0 rounded-lg shadow-sm bg-primary-50 text-sm">
+                        <table className="min-w-full border-separate border-spacing-0 rounded-lg shadow-sm bg-primary-50 text-xs sm:text-sm">
                           <thead>
                             <tr className="bg-primary-600 text-white rounded-t-lg">
-                              <th className="p-3 font-bold text-center rounded-tl-lg">Time</th>
+                              <th className="p-2 sm:p-3 font-bold text-center rounded-tl-lg">Time</th>
                               {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day, i) => (
                                 <th
                                   key={day}
-                                  className={`p-3 font-bold text-center ${i === 4 ? 'rounded-tr-lg' : ''}`}
+                                  className={`p-2 sm:p-3 font-bold text-center ${i === 4 ? 'rounded-tr-lg' : ''}`}
                                 >
                                   {day}
                                 </th>
@@ -365,7 +365,7 @@ const LandingPage = () => {
                           <tbody>
                             {['8:00 AM - 10:00 AM', '10:00 AM - 12:00 PM', '12:00 PM - 2:00 PM', '2:00 PM - 4:00 PM'].map((timeSlot, timeIndex) => (
                               <tr key={timeSlot} className={timeIndex % 2 === 0 ? 'bg-white' : 'bg-primary-50'}>
-                                <td className="p-3 font-semibold text-accent-800 border-r border-primary-200">
+                                <td className="p-2 sm:p-3 font-semibold text-accent-800 border-r border-primary-200 text-xs sm:text-sm">
                                   {timeSlot}
                                 </td>
                                 {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((day) => {
@@ -373,14 +373,14 @@ const LandingPage = () => {
                                     course.day === day && course.time === timeSlot
                                   );
                                   return (
-                                    <td key={day} className="p-3 border-r border-primary-200 min-w-[150px]">
+                                    <td key={day} className="p-2 sm:p-3 border-r border-primary-200 min-w-[120px] sm:min-w-[150px]">
                                       {courses.length === 0 ? (
                                         <span className="text-accent-400 italic text-xs">Free</span>
                                       ) : (
                                         courses.map((course, index) => (
                                           <div
                                             key={index}
-                                            className="mb-1 last:mb-0 p-2 rounded bg-white shadow-sm border border-primary-200"
+                                            className="mb-1 last:mb-0 p-1 sm:p-2 rounded bg-white shadow-sm border border-primary-200"
                                           >
                                             <p className="font-semibold text-accent-800 text-xs">
                                               {course.courseName}
