@@ -140,134 +140,134 @@ const FeedbackAnalytics = ({ userRole }) => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Feedback Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 sm:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-100 text-sm font-medium">Total Feedback</p>
-              <p className="text-3xl font-bold">{feedbackStats.overview?.totalFeedback || 0}</p>
+              <p className="text-blue-100 text-xs sm:text-sm font-medium">Total Feedback</p>
+              <p className="text-2xl sm:text-3xl font-bold">{feedbackStats.overview?.totalFeedback || 0}</p>
             </div>
-            <MessageIcon className="w-8 h-8 text-blue-200" />
+            <MessageIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-200" />
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 sm:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-green-100 text-sm font-medium">Average Rating</p>
-              <p className="text-3xl font-bold">{feedbackStats.overview?.averageOverallRating || 0}</p>
+              <p className="text-green-100 text-xs sm:text-sm font-medium">Average Rating</p>
+              <p className="text-2xl sm:text-3xl font-bold">{feedbackStats.overview?.averageOverallRating || 0}</p>
             </div>
-            <StarIcon filled={true} size="w-8 h-8" className="text-green-200" />
+            <StarIcon filled={true} size="w-6 h-6 sm:w-8 sm:h-8" className="text-green-200" />
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 sm:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-orange-100 text-sm font-medium">Pending Responses</p>
-              <p className="text-3xl font-bold">{feedbackStats.overview?.pendingResponses || 0}</p>
+              <p className="text-orange-100 text-xs sm:text-sm font-medium">Pending Responses</p>
+              <p className="text-2xl sm:text-3xl font-bold">{feedbackStats.overview?.pendingResponses || 0}</p>
             </div>
-            <AlertTriangleIcon className="w-8 h-8 text-orange-200" />
+            <AlertTriangleIcon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-200" />
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-6 text-white">
+        <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 sm:p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 text-sm font-medium">Top Issues</p>
-              <p className="text-3xl font-bold">{feedbackStats.insights?.topIssues?.length || 0}</p>
+              <p className="text-purple-100 text-xs sm:text-sm font-medium">Top Issues</p>
+              <p className="text-2xl sm:text-3xl font-bold">{feedbackStats.insights?.topIssues?.length || 0}</p>
             </div>
-            <TrendingUpIcon className="w-8 h-8 text-purple-200" />
+            <TrendingUpIcon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-200" />
           </div>
         </div>
       </div>
 
       {/* Feedback Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Feedback by Level */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-accent-800 mb-4">Feedback by Level</h3>
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-accent-800 mb-3 sm:mb-4">Feedback by Level</h3>
           {feedbackStats.breakdown?.feedbackByLevel && feedbackStats.breakdown.feedbackByLevel.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {feedbackStats.breakdown.feedbackByLevel.map((item) => (
-                <div key={item._id} className="flex items-center justify-between p-3 bg-accent-50 rounded-lg">
-                  <div>
-                    <span className="font-medium text-accent-800">Level {item._id}</span>
-                    <p className="text-sm text-accent-600">{item.count} feedback entries</p>
+                <div key={item._id} className="flex flex-col sm:flex-row sm:items-center justify-between p-2 sm:p-3 bg-accent-50 rounded-lg">
+                  <div className="mb-2 sm:mb-0">
+                    <span className="font-medium text-accent-800 text-sm sm:text-base">Level {item._id}</span>
+                    <p className="text-xs sm:text-sm text-accent-600">{item.count} feedback entries</p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-left sm:text-right">
                     {renderStars(Math.round(item.avgRating))}
-                    <p className="text-sm text-accent-600">Avg: {item.avgRating.toFixed(1)}</p>
+                    <p className="text-xs sm:text-sm text-accent-600">Avg: {item.avgRating.toFixed(1)}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-accent-600 text-center py-4">No feedback by level data available</p>
+            <p className="text-accent-600 text-center py-4 text-sm sm:text-base">No feedback by level data available</p>
           )}
         </div>
 
         {/* Top Issues */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-accent-800 mb-4">Top Issues Reported</h3>
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-accent-800 mb-3 sm:mb-4">Top Issues Reported</h3>
           {feedbackStats.insights?.topIssues && feedbackStats.insights.topIssues.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {feedbackStats.insights.topIssues.map((issue, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
-                  <div>
-                    <span className="font-medium text-red-800 capitalize">
+                <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-2 sm:p-3 bg-red-50 rounded-lg">
+                  <div className="mb-2 sm:mb-0">
+                    <span className="font-medium text-red-800 capitalize text-sm sm:text-base">
                       {getIssueTypeLabel(issue._id)}
                     </span>
-                    <p className="text-sm text-red-600">{issue.count} reports</p>
+                    <p className="text-xs sm:text-sm text-red-600">{issue.count} reports</p>
                   </div>
-                  <div className="text-red-600 font-bold text-lg">
+                  <div className="text-red-600 font-bold text-base sm:text-lg">
                     {issue.count}
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-accent-600 text-center py-4">No issues reported</p>
+            <p className="text-accent-600 text-center py-4 text-sm sm:text-base">No issues reported</p>
           )}
         </div>
       </div>
 
       {/* Recent Feedback */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-semibold text-accent-800 mb-4">Recent Feedback</h3>
+      <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+        <h3 className="text-base sm:text-lg font-semibold text-accent-800 mb-3 sm:mb-4">Recent Feedback</h3>
         {feedbackStats.recentFeedback && feedbackStats.recentFeedback.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {feedbackStats.recentFeedback.map((feedback) => (
-              <div key={feedback._id} className="border border-primary-200 rounded-lg p-4">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="font-medium text-accent-800">
+              <div key={feedback._id} className="border border-primary-200 rounded-lg p-3 sm:p-4">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-2 sm:mb-3">
+                  <div className="flex-1 mb-2 sm:mb-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-2 mb-2">
+                      <span className="font-medium text-accent-800 text-sm sm:text-base">
                         {feedback.isAnonymous ? 'Anonymous Student' : feedback.studentId?.name || 'Student'}
                       </span>
                       {!feedback.isAnonymous && (
-                        <span className="text-sm text-accent-600">
+                        <span className="text-xs sm:text-sm text-accent-600">
                           ({feedback.department?.charAt(0).toUpperCase() + feedback.department?.slice(1)} - Level {feedback.level})
                         </span>
                       )}
                     </div>
-                    <div className="text-sm text-accent-600 mb-2">
+                    <div className="text-xs sm:text-sm text-accent-600 mb-2">
                       <span className="font-medium">Timetable:</span> Level {feedback.level} - {feedback.semester.charAt(0).toUpperCase() + feedback.semester.slice(1)} Semester
                     </div>
-                    <div className="flex items-center space-x-4 mb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 mb-2">
                       {renderStars(feedback.overallRating)}
-                      <span className="text-sm text-accent-600">
+                      <span className="text-xs sm:text-sm text-accent-600">
                         {new Date(feedback.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                     {feedback.comments && (
-                      <p className="text-accent-700 text-sm mb-2">{feedback.comments}</p>
+                      <p className="text-accent-700 text-xs sm:text-sm mb-2">{feedback.comments}</p>
                     )}
                     {feedback.issues && feedback.issues.length > 0 && (
                       <div className="mb-2">
-                        <p className="text-sm font-medium text-red-700 mb-1">Issues:</p>
+                        <p className="text-xs sm:text-sm font-medium text-red-700 mb-1">Issues:</p>
                         <div className="flex flex-wrap gap-1">
                           {feedback.issues.map((issue, index) => (
                             <span key={index} className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">
@@ -280,16 +280,16 @@ const FeedbackAnalytics = ({ userRole }) => {
                   </div>
                   <button
                     onClick={() => fetchTimetableFeedback(feedback.timetableId._id || feedback.timetableId)}
-                    className="px-3 py-1 bg-primary-600 text-white text-sm rounded hover:bg-primary-700 transition-colors"
+                    className="px-2 sm:px-3 py-1 bg-primary-600 text-white text-xs sm:text-sm rounded hover:bg-primary-700 transition-colors self-start sm:self-center"
                   >
                     View Details
                   </button>
                 </div>
                 
                 {feedback.response && (
-                  <div className="mt-3 p-3 bg-green-50 rounded-lg">
-                    <p className="text-sm font-medium text-green-800 mb-1">Response:</p>
-                    <p className="text-sm text-green-700">{feedback.response.message}</p>
+                  <div className="mt-2 sm:mt-3 p-2 sm:p-3 bg-green-50 rounded-lg">
+                    <p className="text-xs sm:text-sm font-medium text-green-800 mb-1">Response:</p>
+                    <p className="text-xs sm:text-sm text-green-700">{feedback.response.message}</p>
                     <p className="text-xs text-green-600 mt-1">
                       Responded on {new Date(feedback.response.respondedAt).toLocaleDateString()}
                     </p>

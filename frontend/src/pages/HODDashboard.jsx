@@ -172,20 +172,20 @@ const HODDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white py-4 sm:py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-accent-800 mb-2">HOD Dashboard</h1>
-          <p className="text-accent-600 text-lg">Manage your department and oversee academic operations</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent-800 mb-2">HOD Dashboard</h1>
+          <p className="text-sm sm:text-base lg:text-lg text-accent-600">Manage your department and oversee academic operations</p>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="mb-8">
-          <div className="flex space-x-1 bg-white rounded-lg p-1 shadow-lg border border-primary-100">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-1 bg-white rounded-lg p-1 shadow-lg border border-primary-100">
             <button
               onClick={() => setActiveSection('overview')}
-              className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors ${
+              className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors text-sm sm:text-base ${
                 activeSection === 'overview'
                   ? 'bg-primary-600 text-white'
                   : 'text-accent-600 hover:text-primary-600'
@@ -195,33 +195,36 @@ const HODDashboard = () => {
             </button>
             <button
               onClick={() => setActiveSection('timetables')}
-              className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors ${
+              className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors text-sm sm:text-base ${
                 activeSection === 'timetables'
                   ? 'bg-primary-600 text-white'
                   : 'text-accent-600 hover:text-primary-600'
               }`}
             >
-              Timetable Management
+              <span className="hidden sm:inline">Timetable Management</span>
+              <span className="sm:hidden">Timetables</span>
             </button>
             <button
               onClick={() => setActiveSection('users')}
-              className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors ${
+              className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors text-sm sm:text-base ${
                 activeSection === 'users'
                   ? 'bg-primary-600 text-white'
                   : 'text-accent-600 hover:text-primary-600'
               }`}
             >
-              User Management
+              <span className="hidden sm:inline">User Management</span>
+              <span className="sm:hidden">Users</span>
             </button>
             <button
               onClick={() => setActiveSection('feedback')}
-              className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors ${
+              className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors text-sm sm:text-base ${
                 activeSection === 'feedback'
                   ? 'bg-primary-600 text-white'
                   : 'text-accent-600 hover:text-primary-600'
               }`}
             >
-              Feedback Analytics
+              <span className="hidden sm:inline">Feedback Analytics</span>
+              <span className="sm:hidden">Feedback</span>
             </button>
           </div>
         </div>
@@ -230,12 +233,12 @@ const HODDashboard = () => {
         {activeSection === 'overview' && (
           <>
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-primary-100">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-primary-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-accent-600 text-sm font-medium">Total Users</p>
-                    <p className="text-3xl font-bold text-accent-800">{stats.totalUsers}</p>
+                    <p className="text-accent-600 text-xs sm:text-sm font-medium">Total Users</p>
+                    <p className="text-2xl sm:text-3xl font-bold text-accent-800">{stats.totalUsers}</p>
                   </div>
                   <div className="text-primary-600">
                     <UsersIcon />
@@ -243,11 +246,11 @@ const HODDashboard = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-primary-100">
+              <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-primary-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-accent-600 text-sm font-medium">Students</p>
-                    <p className="text-3xl font-bold text-accent-800">{stats.totalStudents}</p>
+                    <p className="text-accent-600 text-xs sm:text-sm font-medium">Students</p>
+                    <p className="text-2xl sm:text-3xl font-bold text-accent-800">{stats.totalStudents}</p>
                   </div>
                   <div className="text-primary-600">
                     <UsersIcon />
@@ -255,13 +258,13 @@ const HODDashboard = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-primary-100">
+              <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-primary-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-accent-600 text-sm font-medium">Course Reps</p>
-                    <p className="text-3xl font-bold text-accent-800">{stats.totalCourseReps}</p>
+                    <p className="text-accent-600 text-xs sm:text-sm font-medium">Course Reps</p>
+                    <p className="text-2xl sm:text-3xl font-bold text-accent-800">{stats.totalCourseReps}</p>
                     {stats.unverifiedCourseReps > 0 && (
-                      <p className="text-sm text-yellow-600 font-medium">
+                      <p className="text-xs sm:text-sm text-yellow-600 font-medium">
                         {stats.unverifiedCourseReps} pending approval
                       </p>
                     )}
@@ -269,7 +272,7 @@ const HODDashboard = () => {
                   <div className="text-primary-600 relative">
                     <ChartBarIcon />
                     {stats.unverifiedCourseReps > 0 && (
-                      <div className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                      <div className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center font-bold">
                         {stats.unverifiedCourseReps}
                       </div>
                     )}
@@ -277,11 +280,11 @@ const HODDashboard = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-6 shadow-lg border border-primary-100">
+              <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg border border-primary-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-accent-600 text-sm font-medium">Departments</p>
-                    <p className="text-3xl font-bold text-accent-800">{stats.departments}</p>
+                    <p className="text-accent-600 text-xs sm:text-sm font-medium">Departments</p>
+                    <p className="text-2xl sm:text-3xl font-bold text-accent-800">{stats.departments}</p>
                   </div>
                   <div className="text-primary-600">
                     <CalendarIcon />
@@ -292,76 +295,76 @@ const HODDashboard = () => {
 
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
               <button
                 onClick={() => setActiveSection('users')}
-                className="bg-primary-600 hover:bg-primary-700 text-white p-6 rounded-xl shadow-lg transition-colors flex items-center justify-center"
+                className="bg-primary-600 hover:bg-primary-700 text-white p-4 sm:p-6 rounded-xl shadow-lg transition-colors flex items-center justify-center"
               >
                 <PlusIcon />
-                <span className="ml-2 font-semibold">Manage Users</span>
+                <span className="ml-2 font-semibold text-sm sm:text-base">Manage Users</span>
               </button>
               
               <button
                 onClick={() => setActiveSection('timetables')}
-                className="bg-accent-600 hover:bg-accent-700 text-white p-6 rounded-xl shadow-lg transition-colors flex items-center justify-center"
+                className="bg-accent-600 hover:bg-accent-700 text-white p-4 sm:p-6 rounded-xl shadow-lg transition-colors flex items-center justify-center"
               >
                 <CalendarIcon />
-                <span className="ml-2 font-semibold">Manage Timetables</span>
+                <span className="ml-2 font-semibold text-sm sm:text-base">Manage Timetables</span>
               </button>
               
               <button
                 onClick={() => navigate('/')}
-                className="bg-green-600 hover:bg-green-700 text-white p-6 rounded-xl shadow-lg transition-colors flex items-center justify-center"
+                className="bg-green-600 hover:bg-green-700 text-white p-4 sm:p-6 rounded-xl shadow-lg transition-colors flex items-center justify-center"
               >
                 <ChartBarIcon />
-                <span className="ml-2 font-semibold">View Timetables</span>
+                <span className="ml-2 font-semibold text-sm sm:text-base">View Timetables</span>
               </button>
             </div>
 
             {/* Unverified Course Reps */}
             {unverifiedCourseReps.length > 0 && (
-              <div className="bg-white rounded-xl shadow-lg border border-yellow-200 p-6 mb-8">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center">
-                    <div className="bg-yellow-100 p-3 rounded-lg mr-4">
+              <div className="bg-white rounded-xl shadow-lg border border-yellow-200 p-4 sm:p-6 mb-6 sm:mb-8">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6">
+                  <div className="flex items-center mb-3 sm:mb-0">
+                    <div className="bg-yellow-100 p-2 sm:p-3 rounded-lg mr-3 sm:mr-4">
                       <UsersIcon />
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-accent-800">Pending Course Representative Approvals</h2>
-                      <p className="text-accent-600">{unverifiedCourseReps.length} course representative(s) waiting for approval</p>
+                      <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-accent-800">Pending Course Representative Approvals</h2>
+                      <p className="text-sm sm:text-base text-accent-600">{unverifiedCourseReps.length} course representative(s) waiting for approval</p>
                     </div>
                   </div>
-                  <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs sm:text-sm font-semibold self-start sm:self-center">
                     Action Required
                   </div>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {unverifiedCourseReps.map((rep) => (
-                    <div key={rep._id} className="border border-yellow-200 rounded-lg p-4 bg-yellow-50">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-accent-800">{rep.name}</h3>
-                          <p className="text-sm text-accent-600">{rep.email}</p>
-                          <p className="text-sm text-accent-500">Level {rep.level} • {rep.department}</p>
+                    <div key={rep._id} className="border border-yellow-200 rounded-lg p-3 sm:p-4 bg-yellow-50">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                        <div className="flex-1 mb-3 sm:mb-0">
+                          <h3 className="font-semibold text-accent-800 text-sm sm:text-base">{rep.name}</h3>
+                          <p className="text-xs sm:text-sm text-accent-600">{rep.email}</p>
+                          <p className="text-xs sm:text-sm text-accent-500">Level {rep.level} • {rep.department}</p>
                           <p className="text-xs text-yellow-700 mt-1">Registered: {new Date(rep.createdAt).toLocaleDateString()}</p>
                         </div>
                         
-                        <div className="flex space-x-2">
+                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                           <button
                             onClick={() => handleVerifyCourseRep(rep._id)}
-                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+                            className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm"
                           >
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                             Approve
                           </button>
                           <button
                             onClick={() => handleDeclineCourseRep(rep._id)}
-                            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center"
+                            className="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm"
                           >
-                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                             Decline

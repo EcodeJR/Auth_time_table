@@ -113,130 +113,132 @@ const CourseRepDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-white py-4 sm:py-8 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-accent-800 mb-2">Course Representative Dashboard</h1>
-          <p className="text-accent-600 text-lg">View timetables shared with you by your HOD</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-accent-800 mb-2">Course Representative Dashboard</h1>
+          <p className="text-sm sm:text-base lg:text-lg text-accent-600">View timetables shared with you by your HOD</p>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="mb-8">
-          <div className="flex space-x-1 bg-accent-100 p-1 rounded-lg">
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row space-y-1 sm:space-y-0 sm:space-x-1 bg-accent-100 p-1 rounded-lg">
             <button
               onClick={() => setActiveSection('timetables')}
-              className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors ${
+              className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors text-sm sm:text-base ${
                 activeSection === 'timetables'
                   ? 'bg-primary-600 text-white'
                   : 'text-accent-600 hover:text-primary-600'
               }`}
             >
-              Timetable Review
+              <span className="hidden sm:inline">Timetable Review</span>
+              <span className="sm:hidden">Timetables</span>
             </button>
             <button
               onClick={() => setActiveSection('feedback')}
-              className={`flex-1 py-3 px-6 rounded-md font-semibold transition-colors ${
+              className={`flex-1 py-2 sm:py-3 px-3 sm:px-6 rounded-md font-semibold transition-colors text-sm sm:text-base ${
                 activeSection === 'feedback'
                   ? 'bg-primary-600 text-white'
                   : 'text-accent-600 hover:text-primary-600'
               }`}
             >
-              Feedback Analytics
+              <span className="hidden sm:inline">Feedback Analytics</span>
+              <span className="sm:hidden">Feedback</span>
             </button>
           </div>
         </div>
 
         {/* Enhanced Analytics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
           {/* Review Performance */}
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-6 text-white">
+          <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 sm:p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-100 text-sm font-medium">Review Performance</p>
-                <p className="text-3xl font-bold">{stats.reviewStats?.publishedTimetables || 0}</p>
+                <p className="text-blue-100 text-xs sm:text-sm font-medium">Review Performance</p>
+                <p className="text-2xl sm:text-3xl font-bold">{stats.reviewStats?.publishedTimetables || 0}</p>
                 <p className="text-blue-200 text-xs mt-1">
                   Published this week: {stats.reviewStats?.timetablesPublishedThisWeek || 0}
                 </p>
               </div>
-              <CheckIcon className="w-8 h-8 text-blue-200" />
+              <CheckIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-200" />
             </div>
           </div>
 
           {/* Pending Reviews */}
-          <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-6 text-white">
+          <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-4 sm:p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-orange-100 text-sm font-medium">Pending Reviews</p>
-                <p className="text-3xl font-bold">{stats.reviewStats?.sharedTimetables || 0}</p>
+                <p className="text-orange-100 text-xs sm:text-sm font-medium">Pending Reviews</p>
+                <p className="text-2xl sm:text-3xl font-bold">{stats.reviewStats?.sharedTimetables || 0}</p>
                 <p className="text-orange-200 text-xs mt-1">
                   Reviewed today: {stats.reviewStats?.timetablesReviewedToday || 0}
                 </p>
               </div>
-              <EyeIcon className="w-8 h-8 text-orange-200" />
+              <EyeIcon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-200" />
             </div>
           </div>
 
           {/* Department Insights */}
-          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
+          <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4 sm:p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100 text-sm font-medium">Department</p>
-                <p className="text-3xl font-bold">{stats.departmentInsights?.totalStudents || 0}</p>
+                <p className="text-green-100 text-xs sm:text-sm font-medium">Department</p>
+                <p className="text-2xl sm:text-3xl font-bold">{stats.departmentInsights?.totalStudents || 0}</p>
                 <p className="text-green-200 text-xs mt-1">Total Students</p>
               </div>
-              <GlobeIcon className="w-8 h-8 text-green-200" />
+              <GlobeIcon className="w-6 h-6 sm:w-8 sm:h-8 text-green-200" />
             </div>
           </div>
 
           {/* Student Feedback */}
-          <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
+          <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-4 sm:p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-medium">Student Feedback</p>
-                <p className="text-3xl font-bold">{stats.feedbackStats?.totalFeedback || 0}</p>
+                <p className="text-purple-100 text-xs sm:text-sm font-medium">Student Feedback</p>
+                <p className="text-2xl sm:text-3xl font-bold">{stats.feedbackStats?.totalFeedback || 0}</p>
                 <p className="text-purple-200 text-xs mt-1">
                   Avg Rating: {stats.feedbackStats?.averageRating || 0}/5
                 </p>
               </div>
-              <CalendarIcon className="w-8 h-8 text-purple-200" />
+              <CalendarIcon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-200" />
             </div>
           </div>
         </div>
 
         {/* Timetable Review Section */}
         {activeSection === 'timetables' && (
-          <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-6">
-            <h2 className="text-2xl font-bold text-accent-800 mb-6">Shared Timetables</h2>
+          <div className="bg-white rounded-xl shadow-lg border border-primary-100 p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-accent-800 mb-4 sm:mb-6">Shared Timetables</h2>
           
           {sharedTimetables.length === 0 ? (
-            <div className="text-center py-12">
+            <div className="text-center py-8 sm:py-12">
               <CalendarIcon />
-              <p className="text-accent-600 text-lg mt-4">No timetables shared with you yet.</p>
-              <p className="text-accent-500 mt-2">Your HOD will share timetables for your level.</p>
+              <p className="text-accent-600 text-base sm:text-lg mt-4">No timetables shared with you yet.</p>
+              <p className="text-accent-500 mt-2 text-sm sm:text-base">Your HOD will share timetables for your level.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {sharedTimetables.map((timetable) => (
-                <div key={timetable._id} className="border border-accent-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h3 className="font-bold text-accent-800">
+                <div key={timetable._id} className="border border-accent-200 rounded-lg p-4 sm:p-6 hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4">
+                    <div className="mb-2 sm:mb-0">
+                      <h3 className="font-bold text-accent-800 text-sm sm:text-base">
                         {timetable.department} - Level {timetable.level}
                       </h3>
-                      <p className="text-sm text-accent-600">
+                      <p className="text-xs sm:text-sm text-accent-600">
                         Shared by: {timetable.createdBy?.name}
                       </p>
                     </div>
-                    <div className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    <div className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold self-start sm:self-center ${
                       timetable.status === 'shared' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
                     }`}>
                       {timetable.status.charAt(0).toUpperCase() + timetable.status.slice(1)}
                     </div>
                   </div>
                   
-                  <div className="mb-4">
-                    <p className="text-sm text-accent-600">
+                  <div className="mb-3 sm:mb-4">
+                    <p className="text-xs sm:text-sm text-accent-600">
                       <span className="font-medium">{timetable.courses.length}</span> courses scheduled
                     </p>
                     <p className="text-xs text-accent-500">
@@ -247,7 +249,7 @@ const CourseRepDashboard = () => {
                   <div className="space-y-2">
                     <button
                       onClick={() => handleViewTimetable(timetable)}
-                      className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-lg font-semibold transition-colors flex items-center justify-center"
+                      className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm"
                     >
                       <EyeIcon />
                       <span className="ml-2">View Timetable</span>
@@ -256,7 +258,7 @@ const CourseRepDashboard = () => {
                     {timetable.status === 'shared' && (
                       <button
                         onClick={() => handlePublishTimetable(timetable._id)}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition-colors flex items-center justify-center"
+                        className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition-colors flex items-center justify-center text-sm"
                       >
                         <GlobeIcon />
                         <span className="ml-2">Publish for Students</span>
@@ -264,7 +266,7 @@ const CourseRepDashboard = () => {
                     )}
                     
                     {timetable.status === 'published' && (
-                      <div className="w-full bg-green-100 text-green-800 py-2 rounded-lg font-semibold flex items-center justify-center">
+                      <div className="w-full bg-green-100 text-green-800 py-2 rounded-lg font-semibold flex items-center justify-center text-sm">
                         <CheckIcon />
                         <span className="ml-2">Published & Live</span>
                       </div>
