@@ -1,26 +1,33 @@
 // 📌 App.js
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import SuperAdmin from './pages/SuperAdmin';
-import AdminPanel from './pages/AdminPanel';
+import HODDashboard from './pages/HODDashboard';
+import CourseRepDashboard from './pages/CourseRepDashboard';
+import AccountManagement from './pages/AccountManagement';
+import StudentFeedback from './pages/StudentFeedback';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-        <Route path='/superadmin' element={<PrivateRoute><SuperAdmin /></PrivateRoute>} />
-        <Route path='/adminpanel' element={<PrivateRoute><AdminPanel /></PrivateRoute>} />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/hod-dashboard' element={<PrivateRoute><HODDashboard /></PrivateRoute>} />
+          <Route path='/course-rep-dashboard' element={<PrivateRoute><CourseRepDashboard /></PrivateRoute>} />
+          <Route path='/account-management' element={<PrivateRoute><AccountManagement /></PrivateRoute>} />
+          <Route path='/student-feedback' element={<PrivateRoute><StudentFeedback /></PrivateRoute>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

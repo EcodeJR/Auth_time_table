@@ -5,7 +5,7 @@ yarn-error.log
 
 # Environment variables
 .env
-
+.env.backup
 # Logs
 logs/
 *.log

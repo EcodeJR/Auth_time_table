@@ -7,6 +7,7 @@ import courseRoutes from './routes/courses.js';
 import venueRoutes from './routes/venues.js';
 import timetableRoutes from './routes/timetable.js';
 import adminRoutes from './routes/admin.js';
+import feedbackRoutes from './routes/feedback.js';
 import connectDB from './config/db.js';
 
 dotenv.config();
@@ -15,6 +16,7 @@ const app = express();
 // Define allowed origins (make sure they exactly match your deployed frontends)
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://127.0.0.1:5500',
   'https://auth-time.vercel.app',
   'https://vercel.com/ecodejrs-projects/auth-time/CAm7c7ZDC2heYPfQcpyx2YWfvRxb'
 ];
@@ -60,6 +62,7 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/venues', venueRoutes);
 app.use('/api/timetable', timetableRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // const PORT = process.env.PORT || 5000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

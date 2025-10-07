@@ -12,118 +12,167 @@ const shuffleArray = (array) => {
   return arr;
 };
 
-export const generateSchedule = async (courses) => {
-  // Assuming all courses are for the same department
-  const department = courses.length ? courses[0].department : "";
+// Helper function to check for conflicts
+const hasConflict = (venue, day, time, existingBookings) => {
+  return existingBookings.some(booking => 
+    booking.venue === venue && booking.day === day && booking.time === time
+  );
+};
+
+// Helper function to get available venues for a specific slot
+const getAvailableVenues = (venues, day, time, existingBookings) => {
+  return venues.filter(venue => 
+    !hasConflict(venue.name, day, time, existingBookings)
+  );
+};
+
+export const generateSchedule = async (courses, venues, semester) => {
+  console.log('Scheduler called with:', { coursesCount: courses.length, venuesCount: venues.length, semester });
+  
+  if (!courses.length || !venues.length) {
+    console.log('No courses or venues provided');
+    return [];
+  }
+
+  const department = courses[0].department;
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
   const timeSlots = [
     '8:00 AM - 10:00 AM',
-    '10:00 AM - 12:00 PM',
+    '10:00 AM - 12:00 PM', 
     '12:00 PM - 2:00 PM',
     '2:00 PM - 4:00 PM'
   ];
   
-  let timetable = [];
-  let scheduledCourses = new Set(); // Ensures each course is scheduled only once
-  let levelDayCount = {}; // Tracks number of courses per level for each day
-
-
-  // Fetch venues for the department and shuffle them to randomize initial order
-  let venues = await Venue.find({ department });
-  if (!venues.length) {
-    return [];
-  }
-  
-  // Queries existing timetable entries for this department
-  const existingEntries = await Timetable.find({ department });
-  const venueBookings = {};
-  existingEntries.forEach(entry => {
-    const vName = entry.venue;
-    if (!venueBookings[vName]) {
-      venueBookings[vName] = [];
-    }
-    // Assuming each entry in Timetable has one course with day and time
-    entry.courses.forEach(course => {
-      venueBookings[vName].push({ day: course.day, time: course.time });
+  try {
+    // Get existing timetable entries for this department and semester to avoid conflicts
+    const existingEntries = await Timetable.find({ 
+      department: department.toLowerCase(),
+      semester: semester.toLowerCase()
     });
-  });
-
-  // Ensures each venue has a bookedSlots array, updated from DB
-  venues.forEach(v => {
-    if (!Array.isArray(v.bookedSlots)) {
-      v.bookedSlots = [];
-    }
-    if (venueBookings[v.name]) {
-      v.bookedSlots = venueBookings[v.name];
-    }
-  });
-
-  // For each course, schedule only one slot
-  for (let course of courses) {
-    if (scheduledCourses.has(course.code)) {
-      continue;
-    }
-
-    // Initialize daily count for this level if not already set
-    if (!levelDayCount[course.level]) {
-      levelDayCount[course.level] = {};
-      days.forEach(day => {
-        levelDayCount[course.level][day] = 0;
-      });
-    }
-
-    // Shuffle days and timeSlots to randomize scheduling order
-    const shuffledDays = shuffleArray(days);
-    const shuffledTimeSlots = shuffleArray(timeSlots);
-
-    let courseScheduled = false;
-    for (let day of shuffledDays) {
-      // Enforce maximum 3 courses per day for this level
-      if (levelDayCount[course.level][day] >= 3) continue;
-
-      for (let time of shuffledTimeSlots) {
-        const slotKey = `${day}-${time}`;
-        // Randomize venues for each attempt by shuffling the venues array
-        const shuffledVenues = shuffleArray(venues);
-        // Find a venue that is not booked at this day/time slot
-        let venue = shuffledVenues.find(v => {
-          const slots = Array.isArray(v.bookedSlots) ? v.bookedSlots : [];
-          return slots.every(slot => slot.day !== day || slot.time !== time);
+    console.log('Found existing entries:', existingEntries.length);
+    
+    const existingBookings = [];
+    
+    existingEntries.forEach(entry => {
+      entry.courses.forEach(course => {
+        existingBookings.push({
+          venue: course.venue,
+          day: course.day,
+          time: course.time,
+          courseCode: course.courseCode,
+          level: entry.level
         });
+      });
+    });
 
-        if (venue) {
-          // Update venue's booked slots and persist in DB
-          venue.bookedSlots.push({ day, time });
-          await venue.save();
+    // Group courses by level for better organization
+    const coursesByLevel = {};
+    courses.forEach(course => {
+      if (!coursesByLevel[course.level]) {
+        coursesByLevel[course.level] = [];
+      }
+      coursesByLevel[course.level].push(course);
+    });
 
-          // Build course info as a plain object with full details
-          const courseInfo = {
-            courseCode: course.code,
-            courseName: course.name,
-            venue: venue.name,
-            day,
-            time
-          };
+    let allTimetables = [];
+    let scheduledCourses = new Set();
+    let levelDayCount = {}; // Track courses per day per level
 
-          // Create a new timetable entry with full course details
-          let newEntry = new Timetable({
-            department: course.department,
-            level: course.level,
-            courses: [courseInfo] // Store full course details here
-          });
+    // Process each level separately
+    for (const [level, levelCourses] of Object.entries(coursesByLevel)) {
+      console.log(`Processing level ${level} with ${levelCourses.length} courses`);
+      
+      // Initialize day count for this level
+      if (!levelDayCount[level]) {
+        levelDayCount[level] = {};
+        days.forEach(day => {
+          levelDayCount[level][day] = 0;
+        });
+      }
 
-          await newEntry.save();
+      // Shuffle courses for this level to randomize scheduling
+      const shuffledCourses = shuffleArray(levelCourses);
+      const levelCoursesInfo = []; // Store all courses for this level
 
-          timetable.push(newEntry);
-          scheduledCourses.add(course.code);
-          levelDayCount[course.level][day]++; // Increment count for this level on the day
-          courseScheduled = true;
-          break; // Slot found, move to next course
+      for (const course of shuffledCourses) {
+        if (scheduledCourses.has(course.code)) {
+          continue; // Skip if already scheduled
+        }
+
+        let courseScheduled = false;
+        
+        // Try to schedule the course
+        for (const day of shuffleArray(days)) {
+          // Limit courses per day per level (max 3)
+          if (levelDayCount[level][day] >= 3) continue;
+
+          for (const time of shuffleArray(timeSlots)) {
+            // Get available venues for this slot
+            const availableVenues = getAvailableVenues(venues, day, time, existingBookings);
+            
+            if (availableVenues.length > 0) {
+              // Select a random available venue
+              const selectedVenue = shuffleArray(availableVenues)[0];
+              
+              // Create course info
+              const courseInfo = {
+                courseCode: course.code,
+                courseName: course.name,
+                venue: selectedVenue.name,
+                day,
+                time,
+                instructor: course.instructor || 'TBA',
+                classSize: course.classSize || 50
+              };
+
+              // Add to existing bookings to prevent future conflicts
+              existingBookings.push({
+                venue: selectedVenue.name,
+                day,
+                time,
+                courseCode: course.code,
+                level: level
+              });
+
+              // Add course info to level courses
+              levelCoursesInfo.push(courseInfo);
+              scheduledCourses.add(course.code);
+              levelDayCount[level][day]++;
+              courseScheduled = true;
+              break;
+            }
+          }
+          
+          if (courseScheduled) break;
+        }
+
+        // If course couldn't be scheduled, log it
+        if (!courseScheduled) {
+          console.warn(`Could not schedule course: ${course.name} (${course.code}) for ${semester} semester`);
         }
       }
-      if (courseScheduled) break; // Exit day loop if course is scheduled
-    }
-  }
 
-  return timetable;
+      // Create a single timetable entry for this level containing all scheduled courses
+      if (levelCoursesInfo.length > 0) {
+        const timetableEntry = {
+          department: department.toLowerCase(),
+          level: level,
+          semester: semester.toLowerCase(),
+          courses: levelCoursesInfo, // All courses for this level
+          status: 'draft',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        };
+
+        allTimetables.push(timetableEntry);
+        console.log(`Created timetable for Level ${level} with ${levelCoursesInfo.length} courses`);
+      }
+    }
+
+    console.log(`Generated ${allTimetables.length} timetable(s) with ${scheduledCourses.size} total scheduled courses out of ${courses.length} total`);
+    return allTimetables;
+  } catch (error) {
+    console.error('Error in generateSchedule:', error);
+    throw error;
+  }
 };
